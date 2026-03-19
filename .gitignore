@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node.js
+cli/node_modules/
+cli/dist/
+viewer/node_modules/
+viewer/dist/
+
+# Claude Code
+.claude/

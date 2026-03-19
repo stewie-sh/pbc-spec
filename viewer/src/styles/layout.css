@@ -1,0 +1,90 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 320px;
+  min-width: 320px;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow-y: auto;
+  max-height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar select, .sidebar textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.sidebar textarea {
+  min-height: 200px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.sidebar .drop-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.sidebar .drop-zone.dragover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.viewer {
+  flex: 1;
+  padding: var(--space-xl) var(--space-xl) 80px;
+  max-width: 960px;
+  overflow-y: auto;
+}
+
+.viewer .empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .app { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+    max-height: none;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .viewer { padding: var(--space-md); }
+}
