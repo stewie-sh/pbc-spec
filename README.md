@@ -198,7 +198,8 @@ Open format, proprietary intelligence.
 
 ## Current Phase
 
-This is the first public spec package.
+This is the first public PBC package.
 
 The goal of this repo is to make the format legible, useful, and easy to
-evaluate before the engine and hosted runtime are published more broadly.
+evaluate on its own, with lightweight reference tooling for local exploration.
+Deterministic engines and hosted runtimes are separate implementation surfaces.
