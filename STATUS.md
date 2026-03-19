@@ -30,6 +30,7 @@ This repo is ready to act as the first public home for:
 - the final versioning/story around future `v1.0`
 - the best authoring profile for typed values and richer semantic rigor
 - the full relationship between spec, deterministic engine, and hosted runtime
+- the CLI and viewer (reference implementations; not production-grade tooling)
 
 ## What Is Intentionally Missing Here
 

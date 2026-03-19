@@ -119,8 +119,10 @@ This gives authors two layers:
 
 ## Reference Tooling
 
-This repo ships two reference tools for local evaluation. Both live in this
-repo for now and are not yet published as standalone packages.
+This repo ships two reference tools for local evaluation. Both are
+intentionally minimal — they exist to prove the format is machine-readable
+and to give teams something concrete to run, not as production-grade tools.
+Neither is published to a package registry yet; run them locally as shown.
 
 ### CLI
 
@@ -132,6 +134,9 @@ cd cli && npm run dev list ../examples/ --type behaviors
 cd cli && npm run dev stats ../examples/
 cd cli && npm run dev init my-feature.pbc.md
 ```
+
+> **Note:** This is a reference implementation run via `npm run dev`. It is
+> not yet published to npm — `npm i -g @pbc-spec/cli` will not work.
 
 See [cli/README.md](cli/README.md) for full documentation.
 
@@ -148,6 +153,9 @@ cd viewer && npm install && npm run dev
 This gives teams the best of both worlds: technical contributors read and
 author in Markdown, while other stakeholders get a richer visual interface —
 from the same source file, with no export step.
+
+> **Note:** This is a reference implementation for local exploration. No
+> hosted demo is available yet.
 
 See [viewer/README.md](viewer/README.md) for details.
 
@@ -181,6 +189,12 @@ Licensing is path-based. See [LICENSING.md](LICENSING.md) for the full mapping.
 
 - **Spec, docs, examples** — [CC BY-SA 4.0](LICENSE)
 - **CLI and viewer** (`cli/`, `viewer/`) — [Apache-2.0](LICENSE-CODE)
+
+## Built On This Format
+
+[Stewie](https://stewie.sh) is the product built on top of this foundation —
+AI-powered product analysis, grounding workflows, and living spec synthesis.
+Open format, proprietary intelligence.
 
 ## Current Phase
 
