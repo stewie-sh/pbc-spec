@@ -15,5 +15,3 @@ cli/dist/
 viewer/node_modules/
 viewer/dist/
 
-# Claude Code
-.claude/
