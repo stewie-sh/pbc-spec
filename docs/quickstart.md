@@ -1,7 +1,7 @@
 # Quickstart
 
 This repo is about reading and authoring Product Behavior Contracts, not about
-running the engine.
+running a full deterministic implementation.
 
 ## A Minimal PBC
 
@@ -103,7 +103,8 @@ Drop any `.pbc.md` file into the viewer or paste content directly.
 - [pbc-spec-appendix-gfm.md](specs/pbc-spec-appendix-gfm.md)
 - [../examples/README.md](../examples/README.md)
 
-## Deterministic Engine
+## Deterministic Implementations
 
-The deterministic reference implementation lives separately from this repo.
-This repo focuses on the format and its examples first.
+Deterministic implementations live separately from this repo.
+This repo focuses on the format, examples, and lightweight local reference
+tooling first.
