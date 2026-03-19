@@ -7,8 +7,9 @@
    structural correctness.
 3. Clarify the authoring profile for typed values, units, semantic IDs, and
    supporting context.
-4. Publish the deterministic reference engine separately after the spec package
-   has landed cleanly.
+4. Clarify the boundary between the public spec, reference tooling, and
+   deterministic implementation support after the first package has landed
+   cleanly.
 
 ## Likely Next Spec Work
 

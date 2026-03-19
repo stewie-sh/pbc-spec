@@ -1,7 +1,7 @@
 # Status
 
 **Repo:** `pbc-spec`  
-**Phase:** first public spec package  
+**Phase:** first public PBC package  
 **Spec version:** `0.6.0-draft`  
 **Date:** March 2026
 
@@ -13,6 +13,7 @@ This repo is ready to act as the first public home for:
 - the Markdown-first philosophy behind it
 - a small set of worked examples
 - a short roadmap for the next public iterations
+- lightweight reference tooling for local evaluation
 
 ## What Is Stable Enough To Review
 
@@ -29,7 +30,8 @@ This repo is ready to act as the first public home for:
 - the exact long-term block set
 - the final versioning/story around future `v1.0`
 - the best authoring profile for typed values and richer semantic rigor
-- the full relationship between spec, deterministic engine, and hosted runtime
+- the long-term relationship between the public spec, deterministic
+  implementation support, and hosted runtimes
 - the CLI and viewer (reference implementations; not production-grade tooling)
 
 ## What Is Intentionally Missing Here
