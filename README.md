@@ -192,9 +192,8 @@ Licensing is path-based. See [LICENSING.md](LICENSING.md) for the full mapping.
 
 ## Built On This Format
 
-[Stewie](https://stewie.sh) is the product built on top of this foundation —
-AI-powered product analysis, grounding workflows, and living spec synthesis.
-Open format, proprietary intelligence.
+[Stewie](https://stewie.sh) is built on top of this foundation, using PBC as
+the open format for structured product behavior contracts.
 
 ## Current Phase
 
