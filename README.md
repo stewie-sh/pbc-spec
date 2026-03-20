@@ -3,6 +3,8 @@
 Product Behavior Contract (PBC) is a Markdown-first specification format for
 describing what a product promises to do.
 
+Try the live viewer demo: [stewie-sh.github.io/pbc-spec](https://stewie-sh.github.io/pbc-spec/)
+
 PBC is meant to sit in the shared space between product, engineering, QA, and
 design:
 
