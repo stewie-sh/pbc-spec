@@ -24,6 +24,8 @@ const EXAMPLES: Array<{ name: string; file: string }> = [
 let currentRaw = '';
 
 function init() {
+  document.documentElement.setAttribute('data-theme', 'dark');
+
   const app = document.getElementById('app')!;
   app.innerHTML = '';
   app.className = 'app';
@@ -40,7 +42,7 @@ function init() {
 
   const themeBtn = document.createElement('button');
   themeBtn.className = 'theme-toggle';
-  themeBtn.textContent = '\u263e';
+  themeBtn.textContent = '\u2600';
   themeBtn.title = 'Toggle theme';
   themeBtn.addEventListener('click', () => {
     const html = document.documentElement;
