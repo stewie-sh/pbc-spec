@@ -36,6 +36,10 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Install CLI dependencies
+        working-directory: cli
+        run: npm ci
+
       - name: Install viewer dependencies
         working-directory: viewer
         run: npm ci
