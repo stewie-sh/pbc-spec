@@ -154,8 +154,10 @@ This gives teams the best of both worlds: technical contributors read and
 author in Markdown, while other stakeholders get a richer visual interface —
 from the same source file, with no export step.
 
-> **Note:** This is a reference implementation for local exploration. No
-> hosted demo is available yet.
+Live demo: [stewie-sh.github.io/pbc-spec](https://stewie-sh.github.io/pbc-spec/)
+
+> **Note:** This is still a reference implementation for local exploration. The
+> hosted viewer is a lightweight static demo, not a production product surface.
 
 See [viewer/README.md](viewer/README.md) for details.
 
