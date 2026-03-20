@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "viewer/**"
+      - "cli/**"
+      - "examples/**"
       - ".github/workflows/deploy-viewer-pages.yml"
   workflow_dispatch:
 
