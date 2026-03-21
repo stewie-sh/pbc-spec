@@ -97,7 +97,7 @@ The viewer parses `pbc:*` blocks and renders actors, states, behaviors, rules,
 and configuration as interactive cards, SVG diagrams, and validation results.
 Drop any `.pbc.md` file into the viewer or paste content directly.
 
-Live demo: [stewie-sh.github.io/pbc-spec](https://stewie-sh.github.io/pbc-spec/)
+Live demo: [pbc.stewie.sh](https://pbc.stewie.sh/)
 
 ## Recommended Reading
 

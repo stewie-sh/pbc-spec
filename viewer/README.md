@@ -33,7 +33,7 @@ Clicking a state or actor highlights related elements across all panels.
 
 ## Getting Started
 
-Live demo: [stewie-sh.github.io/pbc-spec](https://stewie-sh.github.io/pbc-spec/)
+Live demo: [pbc.stewie.sh](https://pbc.stewie.sh/)
 
 ```bash
 npm install
