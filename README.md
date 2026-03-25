@@ -187,6 +187,12 @@ Current ownership boundary:
 7. [cli/README.md](cli/README.md)
 8. [viewer/README.md](viewer/README.md)
 
+## Learn More
+
+- [The PBC spec is live — and it's open source](https://stewie.sh/blog/pbc-spec-is-live) — the launch story and motivation
+- [What is a Product Behavior Contract?](https://stewie.sh/blog/what-is-a-product-behavior-contract) — deep dive into the format and why it exists
+- [One file, two audiences](https://stewie.sh/blog/one-file-two-audiences) — how the same `.pbc.md` file works as Markdown and structured UI
+
 ## License
 
 Licensing is path-based. See [LICENSING.md](LICENSING.md) for the full mapping.
