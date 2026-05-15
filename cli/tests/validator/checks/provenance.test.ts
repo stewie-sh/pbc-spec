@@ -57,4 +57,13 @@ describe('checkProvenance', () => {
     const results = checkProvenance(doc);
     expect(results).toHaveLength(0);
   });
+
+  it('W012: warns when provenance-backed behavior has no stable anchor', () => {
+    const doc = makeDoc([
+      block('behavior', { name: 'Test', actor: 'someone' }),
+      block('provenance', [{ kind: 'code', ref: 'src/file.ts', confidence: 'verified', detail: 'Covers behavior.' }]),
+    ]);
+    const results = checkProvenance(doc);
+    expect(results.some(r => r.checkId === 'W012')).toBe(true);
+  });
 });
