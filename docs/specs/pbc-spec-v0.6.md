@@ -614,7 +614,7 @@ Rules:
 - provenance should not silently change the meaning of the contract itself
 - implementation details should live here before they leak into behavior names
 
-Trust integration guidance:
+External evidence integration guidance:
 
 - behaviors, rules, and configuration facts that external evidence systems
   verify should carry stable `id` values
@@ -627,8 +627,8 @@ Example:
 
 ```yaml
 - kind: runtime
-  ref: gt-kb://specs/PB-auth.session.expiry
-  detail: Latest GT-KB trust state for auth.session.expiry is passing.
+  ref: evidence://your-ledger/specs/auth.session.expiry
+  detail: Latest external evidence state for auth.session.expiry is passing.
   confidence: verified
 ```
 
