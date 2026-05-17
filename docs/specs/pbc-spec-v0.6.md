@@ -614,6 +614,24 @@ Rules:
 - provenance should not silently change the meaning of the contract itself
 - implementation details should live here before they leak into behavior names
 
+External evidence integration guidance:
+
+- behaviors, rules, and configuration facts that external evidence systems
+  verify should carry stable `id` values
+- external evidence ledgers should reference those IDs rather than rewriting
+  the core contract text
+- if current evidence fails or expires, represent that as provenance or
+  grounding context until a human changes the authored behavior itself
+
+Example:
+
+```yaml
+- kind: runtime
+  ref: evidence://your-ledger/specs/auth.session.expiry
+  detail: Latest external evidence state for auth.session.expiry is passing.
+  confidence: verified
+```
+
 ### 9.4 `pbc:include`
 
 `pbc:include` remains the stable local composition primitive for product PBC

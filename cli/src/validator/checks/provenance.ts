@@ -8,6 +8,7 @@ export function checkProvenance(doc: PbcDocument): CheckResult[] {
 
   const hasBehaviors = doc.blocks.some(b => b.type === 'behavior');
   const hasProvenance = doc.blocks.some(b => b.type === 'provenance');
+  const behaviorBlocks = doc.blocks.filter(b => b.type === 'behavior');
 
   for (const block of doc.blocks) {
     if (block.type !== 'provenance') continue;
@@ -59,6 +60,26 @@ export function checkProvenance(doc: PbcDocument): CheckResult[] {
       message: 'File has behaviors but no `pbc:provenance` blocks.',
       file,
     });
+  }
+
+  if (hasProvenance) {
+    for (const block of behaviorBlocks) {
+      const items = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
+      for (const item of items) {
+        if (typeof item !== 'object' || item === null) continue;
+        const obj = item as Record<string, unknown>;
+        if (!obj.id && !obj.anchor) {
+          results.push({
+            checkId: 'W012',
+            severity: 'warning',
+            message: 'Behavior has provenance but no stable `id` or `anchor` for external evidence mapping.',
+            file,
+            line: block.startLine,
+            blockType: 'behavior',
+          });
+        }
+      }
+    }
   }
 
   return results;
