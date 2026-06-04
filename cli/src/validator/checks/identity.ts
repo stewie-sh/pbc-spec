@@ -46,6 +46,16 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
               blockType: 'behavior',
             });
           }
+          if (obj.trust && !['trusted', 'provisional', 'scaffolding'].includes(String(obj.trust))) {
+            results.push({
+              checkId: 'E020',
+              severity: 'error',
+              message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: trusted, provisional, scaffolding).`,
+              file,
+              line: block.startLine,
+              blockType: 'behavior',
+            });
+          }
         }
       }
     }
@@ -55,11 +65,22 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
       const items = getItems(block);
       for (const item of items) {
         if (typeof item === 'object' && item !== null) {
+          const obj = item as Record<string, unknown>;
           if (!getIdFromItem(item)) {
             results.push({
               checkId: 'W004',
               severity: 'warning',
               message: '`pbc:rules` entry missing `id` field.',
+              file,
+              line: block.startLine,
+              blockType: 'rules',
+            });
+          }
+          if (obj.trust && !['trusted', 'provisional', 'scaffolding'].includes(String(obj.trust))) {
+            results.push({
+              checkId: 'E020',
+              severity: 'error',
+              message: `\`pbc:rules\` entry "${obj.id || ''}" has invalid trust level "${obj.trust}" (must be one of: trusted, provisional, scaffolding).`,
               file,
               line: block.startLine,
               blockType: 'rules',

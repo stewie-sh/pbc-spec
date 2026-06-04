@@ -68,10 +68,26 @@ describe('checkIdentity', () => {
   it('passes clean document', () => {
     const doc = makeDoc([
       block('actors', [{ id: 'user', name: 'User', type: 'human', description: 'A user.' }]),
-      block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'user' }),
-      block('rules', [{ id: 'RUL-001', name: 'Rule', rule: 'Must hold.' }]),
+      block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'user', trust: 'trusted' }),
+      block('rules', [{ id: 'RUL-001', name: 'Rule', rule: 'Must hold.', trust: 'provisional' }]),
     ]);
     const results = checkIdentity(doc);
     expect(results).toHaveLength(0);
+  });
+
+  it('E020: reports behavior with invalid trust level', () => {
+    const doc = makeDoc([
+      block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'someone', trust: 'unknown_trust' }),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'E020')).toBe(true);
+  });
+
+  it('E020: reports rule with invalid trust level', () => {
+    const doc = makeDoc([
+      block('rules', [{ id: 'RUL-001', name: 'Rule', rule: 'Must hold.', trust: 'invalid_trust' }]),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'E020')).toBe(true);
   });
 });
