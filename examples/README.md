@@ -21,6 +21,10 @@ levels of maturity.
   - an authentication and session-control example
   - good for states, transitions, step-up checks, and access rules
 
+- [proximity-agent.pbc.md](proximity-agent.pbc.md)
+  - a hardware/embedded system example (nRF52840 proximity sensor)
+  - good for physical grounding, hardware validation dependencies, and provenance tracing
+
 ## Interactive Viewing
 
 All examples above are bundled in the [PBC Viewer](../viewer/). Run the viewer
