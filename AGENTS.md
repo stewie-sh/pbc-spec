@@ -81,8 +81,11 @@ What belongs here vs not:
 ## Viewer and Examples Sync
 
 `viewer/public/examples/` is a copy of `examples/` served by the static viewer.
-When any file in `examples/` changes, copy it to `viewer/public/examples/` too.
-The build does not do this automatically.
+When any file in `examples/` changes, the viewer should serve the updated set.
+
+The viewer repo includes a sync script (`viewer/scripts/sync-examples.mjs`) wired
+into `viewer`'s `predev` and `prebuild` scripts so it stays in sync for local
+development and deploy builds.
 
 ## Intentional Deferrals
 

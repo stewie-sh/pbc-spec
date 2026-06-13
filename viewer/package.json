@@ -5,6 +5,9 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "sync:examples": "node scripts/sync-examples.mjs",
+    "predev": "npm run sync:examples",
+    "prebuild": "npm run sync:examples",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
