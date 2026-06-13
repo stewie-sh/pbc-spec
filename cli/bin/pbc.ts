@@ -57,8 +57,9 @@ program
   .command('init')
   .description('Scaffold a new PBC file')
   .argument('[filename]', 'output filename (default: new-feature.pbc.md)')
-  .action((filename: string | undefined) => {
-    const code = runInit(filename);
+  .option('--template <template>', 'starter template (default, feature-flag, permissions, workflow)', 'default')
+  .action((filename: string | undefined, opts: { template: string }) => {
+    const code = runInit(filename, { template: opts.template });
     process.exit(code);
   });
 

@@ -88,6 +88,10 @@ Scaffold a new PBC file with valid frontmatter and starter blocks.
 pbc init billing-subscriptions.pbc.md
 ```
 
+Options:
+
+- `--template <template>` — starter template (`default`, `feature-flag`, `permissions`, `workflow`)
+
 ## Development
 
 ```bash
