@@ -1,4 +1,5 @@
 import type { PbcDocument } from '../../parser/types.js';
+import { VALID_TRUST_LEVELS } from '../../parser/types.js';
 import type { CheckResult } from '../types.js';
 
 function getIdFromItem(item: unknown): string | undefined {
@@ -46,6 +47,16 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
               blockType: 'behavior',
             });
           }
+          if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
+            results.push({
+              checkId: 'W013',
+              severity: 'warning',
+              message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
+              file,
+              line: block.startLine,
+              blockType: 'behavior',
+            });
+          }
         }
       }
     }
@@ -55,11 +66,22 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
       const items = getItems(block);
       for (const item of items) {
         if (typeof item === 'object' && item !== null) {
+          const obj = item as Record<string, unknown>;
           if (!getIdFromItem(item)) {
             results.push({
               checkId: 'W004',
               severity: 'warning',
               message: '`pbc:rules` entry missing `id` field.',
+              file,
+              line: block.startLine,
+              blockType: 'rules',
+            });
+          }
+          if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
+            results.push({
+              checkId: 'W013',
+              severity: 'warning',
+              message: `\`pbc:rules\` entry "${obj.id || '(no id)'}" has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
               file,
               line: block.startLine,
               blockType: 'rules',
