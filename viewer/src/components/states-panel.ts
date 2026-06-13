@@ -44,6 +44,7 @@ export function renderStates(blocks: PbcBlock[]): HTMLElement | null {
 
   const section = el('div', { className: 'section' });
   section.appendChild(el('div', { className: 'section-title' }, 'States'));
+  const layout = el('div', { className: transitions.length > 0 ? 'states-layout' : 'states-layout states-layout-single' });
 
   // Table
   const table = el('table', { className: 'pbc-table' });
@@ -70,13 +71,15 @@ export function renderStates(blocks: PbcBlock[]): HTMLElement | null {
     tbody.appendChild(row);
   }
   table.appendChild(tbody);
-  section.appendChild(table);
+  layout.appendChild(el('div', { className: 'states-table-wrap' }, table));
 
   // Diagram
   if (transitions.length > 0) {
     const diagram = renderStateDiagram(states, transitions);
-    section.appendChild(el('div', { className: 'state-diagram' }, diagram));
+    layout.appendChild(el('div', { className: 'state-diagram' }, diagram));
   }
+
+  section.appendChild(layout);
 
   return section;
 }

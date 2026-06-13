@@ -23,7 +23,7 @@ export function renderActors(blocks: PbcBlock[]): HTMLElement | null {
 
   if (actors.length === 0) return null;
 
-  const grid = el('div', { className: 'card-grid' });
+  const grid = el('div', { className: 'actor-grid' });
 
   for (const actor of actors) {
     const typeClass = `actor-type-${actor.type}`;

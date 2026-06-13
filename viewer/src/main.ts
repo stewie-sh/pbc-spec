@@ -19,6 +19,8 @@ const EXAMPLES: Array<{ name: string; file: string }> = [
   { name: 'Billing & Subscriptions', file: 'billing.pbc.md' },
   { name: 'Sign-in & Session Access', file: 'auth-signin-session-access.pbc.md' },
   { name: 'Workspaces & Roles', file: 'workspaces-roles.pbc.md' },
+  { name: 'Feature Flags & Rollouts', file: 'feature-flags.pbc.md' },
+  { name: 'Permissions & Entitlements', file: 'permissions.pbc.md' },
 ];
 
 let currentRaw = '';

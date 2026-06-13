@@ -43,6 +43,12 @@ npm run dev
 Open [http://localhost:5173](http://localhost:5173). The billing example loads
 automatically. Switch examples from the dropdown or drop in any `.pbc.md` file.
 
+Playground features:
+
+- Deep-link to an example with `?example=feature-flags` (or any example slug).
+- Start from a blank starter template.
+- Copy or download the current `.pbc.md` from the sidebar.
+
 ## Build
 
 ```bash

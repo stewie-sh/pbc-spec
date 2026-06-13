@@ -5,9 +5,9 @@ interface Transition { from: string; to: string; condition: string; }
 interface NodePos { id: string; x: number; y: number; w: number; h: number; }
 
 const NS = 'http://www.w3.org/2000/svg';
-const NODE_H = 36;
+const NODE_H = 40;
 const NODE_PAD = 16;
-const FONT_SIZE = 12;
+const FONT_SIZE = 13;
 
 function measureText(text: string): number {
   return text.length * FONT_SIZE * 0.62 + NODE_PAD * 2;
@@ -166,8 +166,6 @@ export function renderStateDiagram(states: State[], transitions: Transition[]): 
 function createSvg(w: number, h: number): SVGSVGElement {
   const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  svg.setAttribute('width', String(w));
-  svg.setAttribute('height', String(h));
   return svg;
 }
 

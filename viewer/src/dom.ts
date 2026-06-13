@@ -2,7 +2,7 @@
 export function el(
   tag: string,
   attrs?: Record<string, string> | null,
-  ...children: (Node | string)[]
+  ...children: Array<Node | string | null | undefined | false>
 ): HTMLElement {
   const element = document.createElement(tag);
   if (attrs) {
@@ -13,6 +13,7 @@ export function el(
     }
   }
   for (const child of children) {
+    if (child == null || child === false) continue;
     if (typeof child === 'string') element.appendChild(document.createTextNode(child));
     else element.appendChild(child);
   }
