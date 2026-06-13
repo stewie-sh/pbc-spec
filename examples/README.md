@@ -8,9 +8,15 @@ levels of maturity.
 - [billing.pbc.md](billing.pbc.md)
   - the canonical billing example with rich Markdown presentation and current block patterns
   - good for `pbc:config`, states, behaviors, rules, and polished authoring
+- [feature-flags.pbc.md](feature-flags.pbc.md)
+  - a feature flag and progressive rollout example
+  - good for stable configuration, precedence rules, and safe fallbacks
 - [workspaces-roles.pbc.md](workspaces-roles.pbc.md)
   - a permissions/capability example
   - good for role modeling and behavior/rule interplay
+- [permissions.pbc.md](permissions.pbc.md)
+  - a general permissions + entitlements example
+  - good for deny-by-default, entitlement gating, and decision outcomes
 - [auth-signin-session-access.pbc.md](auth-signin-session-access.pbc.md)
   - an authentication and session-control example
   - good for states, transitions, step-up checks, and access rules
