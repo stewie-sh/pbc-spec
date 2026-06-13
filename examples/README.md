@@ -24,6 +24,9 @@ levels of maturity.
 - [proximity-agent.pbc.md](proximity-agent.pbc.md)
   - a hardware/embedded system example (nRF52840 proximity sensor)
   - good for physical grounding, hardware validation dependencies, and provenance tracing
+- [aw-zepp-alignment.pbc.md](aw-zepp-alignment.pbc.md)
+  - an ML-pipeline example (Apple Watch → Zepp swing alignment and trained replacement models)
+  - good for empirical trust graduation: rules promoted to `trusted` only after passing a stated quantitative gate, `provisional` until the evidence exists
 
 ## Interactive Viewing
 
