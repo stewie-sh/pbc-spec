@@ -75,19 +75,35 @@ describe('checkIdentity', () => {
     expect(results).toHaveLength(0);
   });
 
-  it('E020: reports behavior with invalid trust level', () => {
+  it('W013: reports behavior with invalid trust level', () => {
     const doc = makeDoc([
       block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'someone', trust: 'unknown_trust' }),
     ]);
     const results = checkIdentity(doc);
-    expect(results.some(r => r.checkId === 'E020')).toBe(true);
+    expect(results.some(r => r.checkId === 'W013' && r.severity === 'warning')).toBe(true);
   });
 
-  it('E020: reports rule with invalid trust level', () => {
+  it('W013: reports rule with invalid trust level', () => {
     const doc = makeDoc([
       block('rules', [{ id: 'RUL-001', name: 'Rule', rule: 'Must hold.', trust: 'invalid_trust' }]),
     ]);
     const results = checkIdentity(doc);
-    expect(results.some(r => r.checkId === 'E020')).toBe(true);
+    expect(results.some(r => r.checkId === 'W013' && r.severity === 'warning')).toBe(true);
+  });
+
+  it('W013: flags falsy-but-invalid trust values (false, not skipped)', () => {
+    const doc = makeDoc([
+      block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'someone', trust: false }),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'W013')).toBe(true);
+  });
+
+  it('W013: does not flag a valid trust level', () => {
+    const doc = makeDoc([
+      block('behavior', { id: 'BHV-001', name: 'Do thing', actor: 'someone', trust: 'provisional' }),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'W013')).toBe(false);
   });
 });

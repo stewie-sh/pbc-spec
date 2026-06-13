@@ -1,4 +1,5 @@
 import type { PbcDocument } from '../../parser/types.js';
+import { VALID_TRUST_LEVELS } from '../../parser/types.js';
 import type { CheckResult } from '../types.js';
 
 function getIdFromItem(item: unknown): string | undefined {
@@ -46,11 +47,11 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
               blockType: 'behavior',
             });
           }
-          if (obj.trust && !['trusted', 'provisional', 'scaffolding'].includes(String(obj.trust))) {
+          if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
             results.push({
-              checkId: 'E020',
-              severity: 'error',
-              message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: trusted, provisional, scaffolding).`,
+              checkId: 'W013',
+              severity: 'warning',
+              message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
               file,
               line: block.startLine,
               blockType: 'behavior',
@@ -76,11 +77,11 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
               blockType: 'rules',
             });
           }
-          if (obj.trust && !['trusted', 'provisional', 'scaffolding'].includes(String(obj.trust))) {
+          if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
             results.push({
-              checkId: 'E020',
-              severity: 'error',
-              message: `\`pbc:rules\` entry "${obj.id || ''}" has invalid trust level "${obj.trust}" (must be one of: trusted, provisional, scaffolding).`,
+              checkId: 'W013',
+              severity: 'warning',
+              message: `\`pbc:rules\` entry "${obj.id || '(no id)'}" has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
               file,
               line: block.startLine,
               blockType: 'rules',

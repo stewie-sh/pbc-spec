@@ -64,4 +64,6 @@ export const RECOMMENDED_STATUSES = ['draft', 'review', 'agreed', 'deprecated'] 
 
 export const VALID_CONFIDENCE_VALUES = ['verified', 'inferred', 'assumed'] as const;
 
+export const VALID_TRUST_LEVELS = ['trusted', 'provisional', 'scaffolding'] as const;
+
 export const VALID_ACTOR_TYPES = ['human', 'system', 'external'] as const;
