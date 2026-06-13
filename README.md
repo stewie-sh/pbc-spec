@@ -1,9 +1,14 @@
 # PBC Spec
 
+![Spec](https://img.shields.io/badge/spec-v0.6.0--draft-blue)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/docs-CC%20BY--SA%204.0-lightgrey.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/code-Apache%202.0-blue.svg)](LICENSE-CODE)
+[![Deploy Viewer](https://github.com/stewie-sh/pbc-spec/actions/workflows/deploy-viewer-pages.yml/badge.svg)](https://pbc.stewie.sh)
+
 Product Behavior Contract (PBC) is a Markdown-first specification format for
 describing what a product promises to do.
 
-Try the live viewer demo: [pbc.stewie.sh](https://pbc.stewie.sh/)
+**[Try the live viewer →](https://pbc.stewie.sh)**
 
 PBC is meant to sit in the shared space between product, engineering, QA, and
 design:
@@ -163,6 +168,15 @@ Live demo: [pbc.stewie.sh](https://pbc.stewie.sh/)
 
 See [viewer/README.md](viewer/README.md) for details.
 
+## Implementations
+
+| Language | Component | Status |
+|----------|-----------|--------|
+| TypeScript | [CLI](cli/) | Reference — not yet published to npm |
+| TypeScript | [Viewer](viewer/) | Reference — not yet published |
+
+Building an implementation in another language or framework? Open a PR to add it here.
+
 ## What This Repo Does Not Contain
 
 This repo is not:
@@ -193,17 +207,19 @@ Current ownership boundary:
 - [What is a Product Behavior Contract?](https://stewie.sh/blog/what-is-a-product-behavior-contract) — deep dive into the format and why it exists
 - [One file, two audiences](https://stewie.sh/blog/one-file-two-audiences) — how the same `.pbc.md` file works as Markdown and structured UI
 
+## Adopters
+
+[Stewie](https://stewie.sh) is built on PBC as the open format for structured
+product behavior contracts.
+
+Using PBC in your product or tooling? [Open a PR](https://github.com/stewie-sh/pbc-spec/pulls) to add yourself here.
+
 ## License
 
 Licensing is path-based. See [LICENSING.md](LICENSING.md) for the full mapping.
 
 - **Spec, docs, examples** — [CC BY-SA 4.0](LICENSE)
 - **CLI and viewer** (`cli/`, `viewer/`) — [Apache-2.0](LICENSE-CODE)
-
-## Built On This Format
-
-[Stewie](https://stewie.sh) is built on top of this foundation, using PBC as
-the open format for structured product behavior contracts.
 
 ## Current Phase
 
