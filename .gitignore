@@ -17,6 +17,3 @@ viewer/dist/
 
 # Playwright CLI artifacts (local only)
 .playwright-cli/
-
-# mind-core MCP local store
-.mind/
