@@ -13,7 +13,7 @@ tags:
 
 # Apple Watch to Zepp Motion Bridge — Swing Alignment
 
-Apple Watch to Zepp Motion Bridge is a temporal alignment and supervised training system that reconciles tennis swing events captured by an Apple Watch accelerometer with reference shot records from a Zepp sensor to train machine learning replacement models.
+Apple Watch to Zepp Motion Bridge is a temporal alignment and supervised training system that reconciles tennis swing events captured by an Apple Watch accelerometer with reference shot records from a Zepp sensor. Its purpose is to train *POP replacement models* — machine learning models that let the Apple Watch stand in for a Babolat POP wristband, producing Babolat-format shot classifications, with the racquet-mounted Zepp sensor acting as the training supervisor.
 
 ## Scope
 
@@ -241,13 +241,16 @@ Residual jitter analysis runs on unmatched candidates.
 ## Provenance
 
 ```pbc:provenance
-- ref: docs/domain_runs/AW-ZEPP-003/report.md
+- kind: doc
+  ref: docs/domain_runs/AW-ZEPP-003/report.md
+  detail: Similarity tuning achieved 60/60 (100%) closure on the 60shot session and identified the 2s temporal discontinuity on 58shot.
   confidence: verified
-  note: Similarity tuning achieved 60/60 (100%) closure on the 60shot session and identified the 2s temporal discontinuity on 58shot.
-- ref: docs/domain_runs/AW-ZEPP-002/report.md
+- kind: doc
+  ref: docs/domain_runs/AW-ZEPP-002/report.md
+  detail: Initial baseline report showing 27/58 and 39/60 matches prior to peak threshold tuning.
   confidence: verified
-  note: Initial baseline report showing 27/58 and 39/60 matches prior to peak threshold tuning.
-- ref: docs/domain_runs/AW-QUAT-001/finding.md
+- kind: doc
+  ref: docs/domain_runs/AW-QUAT-001/finding.md
+  detail: Quaternion attitude tested as an alternative FH/BH feature. Within-session LOO reached 100% but cross-session generalization was only 73 percent with no advantage over rotation means, confirming classification (AW-ZEPP-RUL-003b) remains provisional pending N>=6 stroke sessions. Same finding established quaternion attitude does recover a usable swing path for simulation.
   confidence: verified
-  note: Quaternion attitude tested as an alternative FH/BH feature. Within-session LOO reached 100% but cross-session generalization was only 73 percent with no advantage over rotation means, confirming classification (AW-ZEPP-RUL-003b) remains provisional pending N>=6 stroke sessions. Same finding established quaternion attitude does recover a usable swing path for simulation.
 ```
