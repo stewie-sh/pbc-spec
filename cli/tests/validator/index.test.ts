@@ -74,5 +74,12 @@ describe('validate integration', () => {
       const results = validate(doc);
       expect(results.some(r => r.checkId === 'E011')).toBe(true);
     });
+
+    it('external-export-confidence.pbc.md triggers exactly two E011 errors', () => {
+      const doc = parseFile(resolve(FIXTURES_DIR, 'external-export-confidence.pbc.md'));
+      const results = validate(doc);
+      const e011 = results.filter(r => r.checkId === 'E011');
+      expect(e011).toHaveLength(2);
+    });
   });
 });
