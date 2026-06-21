@@ -22,6 +22,7 @@ const EXAMPLES: Array<{ name: string; file: string }> = [
   { name: 'Feature Flags & Rollouts', file: 'feature-flags.pbc.md' },
   { name: 'Permissions & Entitlements', file: 'permissions.pbc.md' },
   { name: 'Proximity Agent', file: 'proximity-agent.pbc.md' },
+  { name: 'AW→Zepp Swing Alignment', file: 'aw-zepp-alignment.pbc.md' },
 ];
 
 let currentRaw = '';
