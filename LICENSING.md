@@ -1,6 +1,8 @@
 # Licensing
 
 This repository contains two categories of content under different licenses.
+The root license files contain canonical license text for GitHub/license
+detection. The path mapping below defines where each license applies.
 
 ## Specification, Documentation, and Examples
 
