@@ -28,21 +28,21 @@ describe('runStats command', () => {
     runStats([EXAMPLES_DIR], { format: 'json' });
     const output = consoleOutput.join('\n');
     const parsed = JSON.parse(output);
-    expect(parsed.filesScanned).toBe(7);
+    expect(parsed.filesScanned).toBe(8);
   });
 
   it('reports correct behavior count', () => {
     runStats([EXAMPLES_DIR], { format: 'json' });
     const output = consoleOutput.join('\n');
     const parsed = JSON.parse(output);
-    expect(parsed.totalBehaviors).toBe(23);
-    expect(parsed.behaviorsWithIds).toBe(23);
+    expect(parsed.totalBehaviors).toBe(28);
+    expect(parsed.behaviorsWithIds).toBe(28);
   });
 
   it('reports all statuses as draft', () => {
     runStats([EXAMPLES_DIR], { format: 'json' });
     const output = consoleOutput.join('\n');
     const parsed = JSON.parse(output);
-    expect(parsed.byStatus.draft).toBe(7);
+    expect(parsed.byStatus.draft).toBe(8);
   });
 });

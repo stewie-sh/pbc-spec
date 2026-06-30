@@ -27,6 +27,9 @@ levels of maturity.
 - [aw-zepp-alignment.pbc.md](aw-zepp-alignment.pbc.md)
   - an ML-pipeline example (Apple Watch → Zepp swing alignment and trained replacement models)
   - good for empirical trust graduation: rules promoted to `trusted` only after passing a stated quantitative gate, `provisional` until the evidence exists
+- [tennis-agent.pbc.md](tennis-agent.pbc.md)
+  - a parent-charter composition example (TennisAgent root composing the aw-zepp-alignment leaf via `pbc:include`)
+  - good for product trees: a root that owns cross-cutting behavior and delegates a leaf's rules through an explicit `owns` split, with no overlap
 
 ## Interactive Viewing
 

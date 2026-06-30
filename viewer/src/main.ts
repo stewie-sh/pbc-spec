@@ -23,6 +23,7 @@ const EXAMPLES: Array<{ name: string; file: string }> = [
   { name: 'Permissions & Entitlements', file: 'permissions.pbc.md' },
   { name: 'Proximity Agent', file: 'proximity-agent.pbc.md' },
   { name: 'AW→Zepp Swing Alignment', file: 'aw-zepp-alignment.pbc.md' },
+  { name: 'TennisAgent (Composition)', file: 'tennis-agent.pbc.md' },
 ];
 
 let currentRaw = '';
