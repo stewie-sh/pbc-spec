@@ -43,6 +43,25 @@ describe('validate integration', () => {
       expect(results.some(r => r.checkId === 'E005')).toBe(true);
     });
 
+    it('unclosed-block.pbc.md triggers E005', () => {
+      const doc = parseFile(resolve(FIXTURES_DIR, 'unclosed-block.pbc.md'));
+      const results = validate(doc);
+      expect(results.some(r => r.checkId === 'E005')).toBe(true);
+    });
+
+    it('scalar-behavior.pbc.md triggers E007 and E008', () => {
+      const doc = parseFile(resolve(FIXTURES_DIR, 'scalar-behavior.pbc.md'));
+      const results = validate(doc);
+      expect(results.some(r => r.checkId === 'E007')).toBe(true);
+      expect(results.some(r => r.checkId === 'E008')).toBe(true);
+    });
+
+    it('unknown-hyphenated-block.pbc.md triggers E004', () => {
+      const doc = parseFile(resolve(FIXTURES_DIR, 'unknown-hyphenated-block.pbc.md'));
+      const results = validate(doc);
+      expect(results.some(r => r.checkId === 'E004')).toBe(true);
+    });
+
     it('duplicate-ids.pbc.md triggers E006', () => {
       const doc = parseFile(resolve(FIXTURES_DIR, 'duplicate-ids.pbc.md'));
       const results = validate(doc);

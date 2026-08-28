@@ -32,6 +32,11 @@ describe('runValidate command', () => {
     expect(code).toBe(1);
   });
 
+  it('returns 1 for an unclosed pbc block', () => {
+    const code = runValidate([resolve(FIXTURES_DIR, 'unclosed-block.pbc.md')], { format: 'text' });
+    expect(code).toBe(1);
+  });
+
   it('produces valid JSON in json format', () => {
     runValidate([EXAMPLES_DIR], { format: 'json' });
     const output = consoleOutput.join('\n');

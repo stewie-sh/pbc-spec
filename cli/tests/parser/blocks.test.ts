@@ -22,6 +22,33 @@ describe('extractBlocks', () => {
     expect(result.errors).toHaveLength(0);
   });
 
+  it('extracts GFM fences indented by up to three spaces', () => {
+    const body = `
+  \`\`\`pbc:behavior
+  id: BHV-001
+  name: Indented behavior
+  \`\`\`
+`;
+
+    const result = extractBlocks(body);
+    expect(result.blocks).toHaveLength(1);
+    expect(result.blocks[0].type).toBe('behavior');
+    expect(result.blocks[0].parsed).toEqual({ id: 'BHV-001', name: 'Indented behavior' });
+    expect(result.errors).toHaveLength(0);
+  });
+
+  it('extracts unknown hyphenated block names for validation', () => {
+    const body = `
+\`\`\`pbc:not-a-block
+foo: bar
+\`\`\`
+`;
+
+    const result = extractBlocks(body);
+    expect(result.blocks).toHaveLength(1);
+    expect(result.blocks[0].type).toBe('not-a-block');
+  });
+
   it('extracts multiple blocks', () => {
     const body = `
 \`\`\`pbc:actors
