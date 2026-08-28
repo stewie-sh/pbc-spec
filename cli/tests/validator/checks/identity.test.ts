@@ -41,6 +41,24 @@ describe('checkIdentity', () => {
     expect(results.some(r => r.checkId === 'E008')).toBe(true);
   });
 
+  it('E007 and E008: reject scalar behavior content', () => {
+    const doc = makeDoc([
+      block('behavior', 'not a behavior object'),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'E007')).toBe(true);
+    expect(results.some(r => r.checkId === 'E008')).toBe(true);
+  });
+
+  it('E007 and E008: reject an empty behavior list', () => {
+    const doc = makeDoc([
+      block('behavior', []),
+    ]);
+    const results = checkIdentity(doc);
+    expect(results.some(r => r.checkId === 'E007')).toBe(true);
+    expect(results.some(r => r.checkId === 'E008')).toBe(true);
+  });
+
   it('W004: warns on rules entry without id', () => {
     const doc = makeDoc([
       block('rules', [{ name: 'No ID Rule', rule: 'Something.' }]),
