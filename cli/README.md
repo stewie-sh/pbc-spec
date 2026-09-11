@@ -35,7 +35,7 @@ Checks include:
 | E002 | error | Frontmatter missing required `id` |
 | E003 | error | Frontmatter missing required `title` |
 | E004 | error | Unrecognized `pbc:*` block type |
-| E005 | error | YAML parse failure inside a block |
+| E005 | error | YAML parse failure or unclosed `pbc:*` block |
 | E006 | error | Duplicate semantic IDs within a file |
 | E007 | error | `pbc:behavior` missing `id` |
 | E008 | error | `pbc:behavior` missing `name` |

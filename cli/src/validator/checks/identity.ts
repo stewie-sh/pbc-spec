@@ -23,40 +23,41 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
   for (const block of doc.blocks) {
     // E007, E008: behavior blocks need id and name
     if (block.type === 'behavior') {
-      const items = getItems(block);
+      const parsedItems = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
+      const items = parsedItems.length > 0 ? parsedItems : [null];
       for (const item of items) {
-        if (typeof item === 'object' && item !== null) {
-          const obj = item as Record<string, unknown>;
-          if (!obj.id) {
-            results.push({
-              checkId: 'E007',
-              severity: 'error',
-              message: '`pbc:behavior` block missing `id` field.',
-              file,
-              line: block.startLine,
-              blockType: 'behavior',
-            });
-          }
-          if (!obj.name) {
-            results.push({
-              checkId: 'E008',
-              severity: 'error',
-              message: '`pbc:behavior` block missing `name` field.',
-              file,
-              line: block.startLine,
-              blockType: 'behavior',
-            });
-          }
-          if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
-            results.push({
-              checkId: 'W013',
-              severity: 'warning',
-              message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
-              file,
-              line: block.startLine,
-              blockType: 'behavior',
-            });
-          }
+        const obj = typeof item === 'object' && item !== null
+          ? item as Record<string, unknown>
+          : {};
+        if (!obj.id) {
+          results.push({
+            checkId: 'E007',
+            severity: 'error',
+            message: '`pbc:behavior` block missing `id` field.',
+            file,
+            line: block.startLine,
+            blockType: 'behavior',
+          });
+        }
+        if (!obj.name) {
+          results.push({
+            checkId: 'E008',
+            severity: 'error',
+            message: '`pbc:behavior` block missing `name` field.',
+            file,
+            line: block.startLine,
+            blockType: 'behavior',
+          });
+        }
+        if (obj.trust != null && !VALID_TRUST_LEVELS.includes(String(obj.trust) as (typeof VALID_TRUST_LEVELS)[number])) {
+          results.push({
+            checkId: 'W013',
+            severity: 'warning',
+            message: `\`pbc:behavior\` has invalid trust level "${obj.trust}" (must be one of: ${VALID_TRUST_LEVELS.join(', ')}).`,
+            file,
+            line: block.startLine,
+            blockType: 'behavior',
+          });
         }
       }
     }

@@ -1,8 +1,8 @@
 import yaml from 'js-yaml';
 import type { PbcBlock, ParseError } from './types.js';
 
-const BLOCK_OPEN_RE = /^```pbc:(\w+)\s*$/;
-const BLOCK_CLOSE_RE = /^```\s*$/;
+const BLOCK_OPEN_RE = /^ {0,3}```pbc:([^\s`]+)\s*$/;
+const BLOCK_CLOSE_RE = /^ {0,3}```\s*$/;
 
 export interface BlocksResult {
   blocks: PbcBlock[];
@@ -28,14 +28,14 @@ export function extractBlocks(body: string): BlocksResult {
     // If we're inside a generic fenced block (e.g. ````markdown), skip everything
     if (insideGenericFence) {
       // Check for closing of the outer generic fence (4+ backticks or matching)
-      if (/^````+\s*$/.test(line)) {
+      if (/^ {0,3}````+\s*$/.test(line)) {
         insideGenericFence = false;
       }
       continue;
     }
 
     // Detect opening of a generic code fence (4+ backticks, used for examples)
-    if (!insideBlock && /^````+/.test(line)) {
+    if (!insideBlock && /^ {0,3}````+/.test(line)) {
       insideGenericFence = true;
       continue;
     }
@@ -83,7 +83,7 @@ export function extractBlocks(body: string): BlocksResult {
 
   if (insideBlock) {
     errors.push({
-      message: `Unclosed pbc:${currentType} block starting at line ${startLine}`,
+      message: `Unclosed pbc:${currentType} block.`,
       line: startLine,
     });
   }

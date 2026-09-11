@@ -28,10 +28,10 @@ export function checkBlockSyntax(doc: PbcDocument): CheckResult[] {
     }
   }
 
-  // E005: YAML parse failures are already captured in doc.errors during parsing
-  // We promote them to check results here
+  // E005: block parse failures are already captured in doc.errors during parsing
+  // We promote malformed YAML and unclosed pbc fences to validation errors here.
   for (const err of doc.errors) {
-    if (err.message.includes('YAML parse error')) {
+    if (err.message.includes('YAML parse error') || err.message.startsWith('Unclosed pbc:')) {
       results.push({
         checkId: 'E005',
         severity: 'error',
