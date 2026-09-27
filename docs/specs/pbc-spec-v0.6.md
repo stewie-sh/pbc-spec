@@ -541,6 +541,50 @@ as the primary grounding model.
 They may be used by tools temporarily, but the authored contract should rely on
 semantic anchors.
 
+### 7.8 Trust Levels and Rejected Rules (proposed)
+
+`pbc:rules` entries and `pbc:behavior` blocks may carry a `trust` value:
+
+- `trusted`: settled; an active obligation.
+- `provisional`: active for now, pending more evidence.
+- `scaffolding`: active but temporary, expected to be replaced.
+- `rejected`: **proposed.** Considered and ruled out. A retained decision
+  record, not an obligation.
+
+A `rejected` entry stays in the file so the ruling remains visible to later
+authors and agents. Deleting it loses the ruling, and the same rule tends to be
+re-derived from the same code or context.
+
+Semantics of `rejected`:
+
+- **Not enforced.** It is excluded from active contractual obligations.
+  Consumers that list, check, or apply rules must not treat it as an applicable
+  rule, and should display it as rejected together with its reason.
+- **`rejected_reason` is required.** A rejection without a reason cannot be
+  reviewed later. `rejected_ref` should point at the decision (decision log,
+  issue, PR, or date).
+- **Stable identity.** A rejected ID is not reused for a different rule.
+  Reversing a rejection means changing its `trust` value explicitly, so the
+  reversal shows in the diff. This is an authoring requirement; checking it
+  needs history beyond the current file.
+- **References.** An active behavior or rule must not depend on a rejected rule.
+  PBC has no structured rule-reference field today, so this is authoring
+  guidance for prose references; if structured references are added, a
+  reference to a rejected rule should be a warning.
+- **Older consumers.** Support for `rejected` cannot be assumed. The reference
+  CLI reports an unrecognized `trust: rejected` as an invalid trust level
+  (`W013`) and does not fail validation on that warning by default. Other
+  consumers may reject the value, ignore it, or display the entry as an active
+  rule without distinguishing the rejection. Before relying on rejected entries
+  being excluded from active obligations, check that each consumer in use
+  supports `rejected`.
+- **Not semantic detection.** Flagging a new rule that merely resembles a
+  rejected one is out of scope for deterministic validation. Keeping the
+  rejection in the file, where agents read it, is the mechanism.
+
+See [local-model-benchmark.pbc.md](../../examples/local-model-benchmark.pbc.md)
+for a rejected rule kept next to the rules that replaced it.
+
 ---
 
 ## 8. Block Maturity Model

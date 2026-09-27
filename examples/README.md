@@ -30,6 +30,9 @@ levels of maturity.
 - [tennis-agent.pbc.md](tennis-agent.pbc.md)
   - a parent-charter composition example (TennisAgent root composing the aw-zepp-alignment leaf via `pbc:include`)
   - good for product trees: a root that owns cross-cutting behavior and delegates a leaf's rules through an explicit `owns` split, with no overlap
+- [local-model-benchmark.pbc.md](local-model-benchmark.pbc.md)
+  - a benchmark-runner example with a **rejected** rule (proposed `trust: rejected`)
+  - good for retained decisions: an overruled gate kept with its reason next to the rules that replaced it, plus a narrower active rule that is easy to confuse with it
 
 ## Interactive Viewing
 
