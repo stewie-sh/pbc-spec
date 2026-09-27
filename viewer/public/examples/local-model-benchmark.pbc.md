@@ -126,7 +126,7 @@ A model finishes loading for a benchmark run.
 
 ```pbc:outcomes
 - The result row includes VRAM bytes, total bytes, and cards used.
-- Partial placement is recorded, and the run proceeds.
+- Partial placement is recorded and is not, by itself, a reason to refuse the run. The run proceeds only if all applicable active gates permit it.
 ```
 
 ```pbc:behavior

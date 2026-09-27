@@ -571,10 +571,13 @@ Semantics of `rejected`:
   PBC has no structured rule-reference field today, so this is authoring
   guidance for prose references; if structured references are added, a
   reference to a rejected rule should be a warning.
-- **Older consumers.** A consumer that does not recognize `rejected` reports it
-  as an invalid trust level (the reference CLI's `W013` warning) rather than
-  failing. It may still display the entry as an active rule, so consumers
-  should be updated before relying on the distinction.
+- **Older consumers.** Support for `rejected` cannot be assumed. The reference
+  CLI reports an unrecognized `trust: rejected` as an invalid trust level
+  (`W013`) and does not fail validation on that warning by default. Other
+  consumers may reject the value, ignore it, or display the entry as an active
+  rule without distinguishing the rejection. Before relying on rejected entries
+  being excluded from active obligations, check that each consumer in use
+  supports `rejected`.
 - **Not semantic detection.** Flagging a new rule that merely resembles a
   rejected one is out of scope for deterministic validation. Keeping the
   rejection in the file, where agents read it, is the mechanism.
