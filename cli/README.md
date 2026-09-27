@@ -53,8 +53,19 @@ Checks include:
 | W009 | warning | `pbc:config` nesting too deep |
 | W010 | warning | Behaviors without provenance |
 | W011 | warning | Non-standard `status` value |
+| W012 | warning | Behavior has provenance but no stable `id` or `anchor` |
+| W013 | warning | Invalid trust level on a behavior or rule |
+| W014 | warning | Rejected behavior or rule missing a non-empty string `rejected_reason` |
 
 Exit code 0 if no errors (warnings are OK). Exit code 1 if any errors found.
+
+`trust: rejected` retains a decision record, not an active obligation. The
+validator accepts this trust level and still checks the record's structure.
+`pbc list` retains and labels these records, including their rejection reason and
+optional decision reference; JSON output includes `trust`, `rejected_reason`,
+and `rejected_ref` when applicable. `pbc stats` reports inventory totals (including
+rejections) and separate `rejectedBehaviors` / `rejectedRules` counts. Neither
+command evaluates enforcement or proves that an agent respects a rejection.
 
 ### `pbc list [files...]`
 

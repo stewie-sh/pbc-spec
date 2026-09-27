@@ -17,6 +17,9 @@ interface ListEntry {
   blockType: string;
   id: string;
   name: string;
+  trust?: string;
+  rejected_reason?: string;
+  rejected_ref?: string;
 }
 
 function extractEntries(filePath: string, blockType: string, parsed: unknown): ListEntry[] {
@@ -28,12 +31,20 @@ function extractEntries(filePath: string, blockType: string, parsed: unknown): L
     if (typeof item !== 'object' || item === null) continue;
     const obj = item as Record<string, unknown>;
 
-    entries.push({
+    const entry: ListEntry = {
       file: relFile,
       blockType,
       id: String(obj.id || obj.term || '-'),
       name: String(obj.name || obj.term || obj.definition || obj.rule || '-'),
-    });
+    };
+    if (blockType === 'behavior' || blockType === 'rules') {
+      if (obj.trust != null) entry.trust = String(obj.trust);
+      if (obj.trust === 'rejected') {
+        if (typeof obj.rejected_reason === 'string') entry.rejected_reason = obj.rejected_reason;
+        if (typeof obj.rejected_ref === 'string') entry.rejected_ref = obj.rejected_ref;
+      }
+    }
+    entries.push(entry);
   }
 
   return entries;
@@ -72,8 +83,15 @@ export function runList(patterns: string[], options: ListOptions): number {
     return 0;
   }
 
-  const rows = entries.map(e => [e.file, e.blockType, e.id, truncate(e.name, 60)]);
-  console.log(formatTable(rows, ['File', 'Type', 'ID', 'Name']));
+  const rows = entries.map(entry => [
+    entry.file, entry.blockType, entry.id, entry.trust || '-', truncate(entry.name, 60),
+  ]);
+  console.log(formatTable(rows, ['File', 'Type', 'ID', 'Trust', 'Name']));
+  for (const entry of entries.filter(entry => entry.trust === 'rejected')) {
+    const reason = entry.rejected_reason?.trim() ? entry.rejected_reason : 'Rejection reason missing or invalid.';
+    console.log(`\n${entry.file} / ${entry.id}: Rejected — not an active obligation.\n  Reason: ${reason}`);
+    if (entry.rejected_ref) console.log(`  Decision: ${entry.rejected_ref}`);
+  }
   return 0;
 }
 

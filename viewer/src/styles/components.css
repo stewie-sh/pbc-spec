@@ -250,6 +250,39 @@
 .rules-cell-rule {
   min-width: 0;
 }
+.trust-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  margin-bottom: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.trust-rejected {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+.rule-rejected {
+  background: var(--color-error-soft);
+}
+.behavior-rejected {
+  border-color: var(--color-error);
+}
+.rejection-details {
+  margin-top: var(--space-sm);
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.behavior-card > .rejection-details {
+  padding: 0 var(--space-md) var(--space-md);
+  margin-top: 0;
+}
+.behavior-header > .trust-badge {
+  margin-bottom: 0;
+}
 .validation-bar .check-item .check-line {
   margin-left: auto;
   font-family: var(--font-mono);

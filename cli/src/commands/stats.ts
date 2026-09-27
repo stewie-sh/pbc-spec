@@ -17,6 +17,8 @@ interface Stats {
   totalStates: number;
   totalActors: number;
   totalRules: number;
+  rejectedBehaviors: number;
+  rejectedRules: number;
   totalGlossaryTerms: number;
 }
 
@@ -45,6 +47,8 @@ export function runStats(patterns: string[], options: StatsOptions): number {
     totalStates: 0,
     totalActors: 0,
     totalRules: 0,
+    rejectedBehaviors: 0,
+    rejectedRules: 0,
     totalGlossaryTerms: 0,
   };
 
@@ -69,6 +73,7 @@ export function runStats(patterns: string[], options: StatsOptions): number {
           for (const item of items) {
             if (typeof item === 'object' && item !== null) {
               stats.totalBehaviors++;
+              if ((item as Record<string, unknown>).trust === 'rejected') stats.rejectedBehaviors++;
               if ((item as Record<string, unknown>).id) stats.behaviorsWithIds++;
             }
           }
@@ -76,7 +81,13 @@ export function runStats(patterns: string[], options: StatsOptions): number {
 
         if (block.type === 'states') stats.totalStates += countItems(block.parsed);
         if (block.type === 'actors') stats.totalActors += countItems(block.parsed);
-        if (block.type === 'rules') stats.totalRules += countItems(block.parsed);
+        if (block.type === 'rules') {
+          stats.totalRules += countItems(block.parsed);
+          const items = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
+          stats.rejectedRules += items.filter(item =>
+            typeof item === 'object' && item !== null && item.trust === 'rejected',
+          ).length;
+        }
         if (block.type === 'glossary') stats.totalGlossaryTerms += countItems(block.parsed);
       }
 
@@ -110,9 +121,11 @@ export function runStats(patterns: string[], options: StatsOptions): number {
   lines.push('');
   lines.push(chalk.bold('  Contract units:'));
   lines.push(`    Behaviors:        ${stats.totalBehaviors} (${stats.behaviorsWithIds} with IDs)`);
+  lines.push(`      Rejected:       ${stats.rejectedBehaviors} (retained, not active obligations)`);
   lines.push(`    States:           ${stats.totalStates}`);
   lines.push(`    Actors:           ${stats.totalActors}`);
   lines.push(`    Rules:            ${stats.totalRules}`);
+  lines.push(`      Rejected:       ${stats.rejectedRules} (retained, not active obligations)`);
   lines.push(`    Glossary terms:   ${stats.totalGlossaryTerms}`);
   lines.push('');
   lines.push(chalk.bold('  Coverage:'));

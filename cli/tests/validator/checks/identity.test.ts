@@ -16,6 +16,48 @@ function block(type: string, parsed: unknown): PbcBlock {
 }
 
 describe('checkIdentity', () => {
+  describe.each(['behavior', 'rules'])('rejection checks for %s', blockType => {
+    const base = { id: 'REJ-001', name: 'Old gate', rule: 'Must hold.', trust: 'rejected' };
+
+    it.each(['object', 'list'])('accepts a rejected %s with a reason', shape => {
+      const entry = { ...base, rejected_reason: 'The gate excludes valid requests.' };
+      const parsed = shape === 'list' ? [entry] : entry;
+      expect(checkIdentity(makeDoc([block(blockType, parsed)]))).toEqual([]);
+    });
+
+    it.each([undefined, null, '', ' \n\t ', false, 0, [], {}])('W014: warns for invalid reason %j', reason => {
+      const entry = { ...base, rejected_reason: reason };
+      const results = checkIdentity(makeDoc([block(blockType, [entry])]));
+      expect(results).toEqual([expect.objectContaining({
+        checkId: 'W014', severity: 'warning', file: 'test.pbc.md', line: 1, blockType,
+      })]);
+      expect(results[0].message).toContain('REJ-001');
+      expect(results[0].message).toContain('rejected_reason');
+    });
+
+    it.each(['trusted', 'provisional', 'scaffolding', undefined])('does not require a rejection reason for %s', trust => {
+      expect(checkIdentity(makeDoc([block(blockType, { ...base, trust })]))).toEqual([]);
+    });
+
+    it('checks each rejected entry, not just the first', () => {
+      const results = checkIdentity(makeDoc([block(blockType, [
+        { ...base, id: 'REJ-001', rejected_reason: 'Not applicable.' },
+        { ...base, id: 'REJ-002' },
+      ])]));
+      expect(results).toHaveLength(1);
+      expect(results[0].checkId).toBe('W014');
+      expect(results[0].message).toContain('REJ-002');
+    });
+  });
+
+  it('keeps rejected IDs reserved for duplicate detection', () => {
+    const results = checkIdentity(makeDoc([block('rules', [
+      { id: 'RUL-001', trust: 'rejected', rejected_reason: 'Overruled.' },
+      { id: 'RUL-001', trust: 'trusted' },
+    ])]));
+    expect(results.some(result => result.checkId === 'E006')).toBe(true);
+  });
+
   it('E006: detects duplicate IDs', () => {
     const doc = makeDoc([
       block('actors', [{ id: 'user_one', name: 'User One', type: 'human', description: 'First.' }]),

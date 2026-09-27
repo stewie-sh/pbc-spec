@@ -24,6 +24,7 @@ const EXAMPLES: Array<{ name: string; file: string }> = [
   { name: 'Proximity Agent', file: 'proximity-agent.pbc.md' },
   { name: 'AW→Zepp Swing Alignment', file: 'aw-zepp-alignment.pbc.md' },
   { name: 'TennisAgent (Composition)', file: 'tennis-agent.pbc.md' },
+  { name: 'Local Model Benchmark (Rejected Rules)', file: 'local-model-benchmark.pbc.md' },
 ];
 
 let currentRaw = '';

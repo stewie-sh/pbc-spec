@@ -45,4 +45,16 @@ describe('runStats command', () => {
     const parsed = JSON.parse(output);
     expect(parsed.byStatus.draft).toBe(9);
   });
+
+  it('counts retained rejections separately without dropping inventory entries', () => {
+    runStats([resolve(__dirname, '../fixtures/valid/rejected.pbc.md')], { format: 'json' });
+    expect(JSON.parse(consoleOutput.join('\n'))).toMatchObject({
+      totalRules: 2, rejectedRules: 1, totalBehaviors: 1, rejectedBehaviors: 1,
+    });
+  });
+
+  it('labels rejected totals as retained rather than active in text', () => {
+    runStats([resolve(__dirname, '../fixtures/valid/rejected.pbc.md')], { format: 'text' });
+    expect(consoleOutput.join('\n')).toContain('1 (retained, not active obligations)');
+  });
 });
