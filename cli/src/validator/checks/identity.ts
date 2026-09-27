@@ -21,6 +21,24 @@ export function checkIdentity(doc: PbcDocument): CheckResult[] {
   const seenIds = new Map<string, number>(); // id -> first line
 
   for (const block of doc.blocks) {
+    if (block.type === 'behavior' || block.type === 'rules') {
+      for (const item of getItems(block)) {
+        if (typeof item !== 'object' || item === null) continue;
+        const entry = item as Record<string, unknown>;
+        if (entry.trust === 'rejected' &&
+            (typeof entry.rejected_reason !== 'string' || !entry.rejected_reason.trim())) {
+          results.push({
+            checkId: 'W014',
+            severity: 'warning',
+            message: `\`pbc:${block.type}\` entry "${entry.id || '(no id)'}" with trust "rejected" requires a non-empty \`rejected_reason\` string.`,
+            file,
+            line: block.startLine,
+            blockType: block.type,
+          });
+        }
+      }
+    }
+
     // E007, E008: behavior blocks need id and name
     if (block.type === 'behavior') {
       const parsedItems = Array.isArray(block.parsed) ? block.parsed : [block.parsed];

@@ -7,6 +7,16 @@ const EXAMPLES_DIR = resolve(__dirname, '../../../examples');
 const FIXTURES_DIR = resolve(__dirname, '../fixtures/invalid');
 
 describe('validate integration', () => {
+  it('validates retained rejected rules and behaviors without warnings', () => {
+    const doc = parseFile(resolve(__dirname, '../fixtures/valid/rejected.pbc.md'));
+    expect(validate(doc)).toEqual([]);
+  });
+
+  it('validates the benchmark rejection example without warnings', () => {
+    const doc = parseFile(resolve(EXAMPLES_DIR, 'local-model-benchmark.pbc.md'));
+    expect(validate(doc)).toEqual([]);
+  });
+
   describe('example files pass cleanly (no errors)', () => {
     const exampleFiles = [
       'billing.pbc.md',

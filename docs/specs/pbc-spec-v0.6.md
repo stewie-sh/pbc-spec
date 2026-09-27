@@ -541,14 +541,14 @@ as the primary grounding model.
 They may be used by tools temporarily, but the authored contract should rely on
 semantic anchors.
 
-### 7.8 Trust Levels and Rejected Rules (proposed)
+### 7.8 Trust Levels and Rejected Rules
 
 `pbc:rules` entries and `pbc:behavior` blocks may carry a `trust` value:
 
 - `trusted`: settled; an active obligation.
 - `provisional`: active for now, pending more evidence.
 - `scaffolding`: active but temporary, expected to be replaced.
-- `rejected`: **proposed.** Considered and ruled out. A retained decision
+- `rejected`: considered and ruled out. A retained decision
   record, not an obligation.
 
 A `rejected` entry stays in the file so the ruling remains visible to later
@@ -560,9 +560,9 @@ Semantics of `rejected`:
 - **Not enforced.** It is excluded from active contractual obligations.
   Consumers that list, check, or apply rules must not treat it as an applicable
   rule, and should display it as rejected together with its reason.
-- **`rejected_reason` is required.** A rejection without a reason cannot be
-  reviewed later. `rejected_ref` should point at the decision (decision log,
-  issue, PR, or date).
+- **`rejected_reason` is required.** It must be a non-empty string. A rejection
+  without a reason cannot be reviewed later. `rejected_ref` should point at the
+  decision (decision log, issue, PR, or date).
 - **Stable identity.** A rejected ID is not reused for a different rule.
   Reversing a rejection means changing its `trust` value explicitly, so the
   reversal shows in the diff. This is an authoring requirement; checking it
@@ -571,13 +571,20 @@ Semantics of `rejected`:
   PBC has no structured rule-reference field today, so this is authoring
   guidance for prose references; if structured references are added, a
   reference to a rejected rule should be a warning.
-- **Older consumers.** Support for `rejected` cannot be assumed. The reference
-  CLI reports an unrecognized `trust: rejected` as an invalid trust level
+- **Older consumers.** Support for `rejected` cannot be assumed. Earlier reference
+  CLI versions without support report `trust: rejected` as an invalid trust level
   (`W013`) and does not fail validation on that warning by default. Other
   consumers may reject the value, ignore it, or display the entry as an active
   rule without distinguishing the rejection. Before relying on rejected entries
   being excluded from active obligations, check that each consumer in use
   supports `rejected`.
+- **Reference tooling.** The CLI accepts `rejected` and warns (`W014`) when its
+  reason is missing, blank, or not a string. Validation still checks the retained
+  entry's structure; passing validation does not make it an active obligation.
+  CLI listings and viewer panels preserve and label rejected entries with their
+  rationale. Statistics count them in the total inventory and report rejected
+  counts separately. Companion transitions of rejected behaviors are not shown
+  as active edges in the viewer's state diagram.
 - **Not semantic detection.** Flagging a new rule that merely resembles a
   rejected one is out of scope for deterministic validation. Keeping the
   rejection in the file, where agents read it, is the mechanism.

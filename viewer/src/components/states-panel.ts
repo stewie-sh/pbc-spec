@@ -28,7 +28,21 @@ export function renderStates(blocks: PbcBlock[]): HTMLElement | null {
 
   // Collect transitions
   const transitions: TransitionEntry[] = [];
-  for (const block of blocks.filter(b => b.type === 'transitions')) {
+  const companionTypes = new Set(['preconditions', 'trigger', 'outcomes', 'events', 'transitions', 'exceptions']);
+  let rejectedBehavior = false;
+  for (const block of blocks) {
+    if (block.type === 'behavior') {
+      const behaviors = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
+      rejectedBehavior = false;
+      for (const behavior of behaviors) {
+        if (typeof behavior === 'object' && behavior !== null) {
+          rejectedBehavior = behavior.trust === 'rejected';
+        }
+      }
+    } else if (!companionTypes.has(block.type)) {
+      rejectedBehavior = false;
+    }
+    if (block.type !== 'transitions' || rejectedBehavior) continue;
     const entries = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
     for (const entry of entries) {
       if (typeof entry === 'object' && entry !== null) {

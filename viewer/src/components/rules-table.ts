@@ -1,11 +1,12 @@
 import { el } from '../dom.js';
 import type { PbcBlock } from '../parser.js';
+import { readTrust, renderTrustBadge, renderRejection, type TrustDetails } from './trust-details.js';
 
 export function renderRules(blocks: PbcBlock[]): HTMLElement | null {
   const ruleBlocks = blocks.filter(b => b.type === 'rules');
   if (ruleBlocks.length === 0) return null;
 
-  const rules: Array<{ id: string; name: string; rule: string }> = [];
+  const rules: Array<{ id: string; name: string; rule: string } & TrustDetails> = [];
   for (const block of ruleBlocks) {
     const entries = Array.isArray(block.parsed) ? block.parsed : [block.parsed];
     for (const entry of entries) {
@@ -15,6 +16,7 @@ export function renderRules(blocks: PbcBlock[]): HTMLElement | null {
           id: String(obj.id || '-'),
           name: String(obj.name || ''),
           rule: String(obj.rule || ''),
+          ...readTrust(obj),
         });
       }
     }
@@ -23,7 +25,10 @@ export function renderRules(blocks: PbcBlock[]): HTMLElement | null {
   if (rules.length === 0) return null;
 
   const section = el('div', { className: 'section' });
-  section.appendChild(el('div', { className: 'section-title' }, `Rules (${rules.length})`));
+  const rejectedCount = rules.filter(rule => rule.trust === 'rejected').length;
+  section.appendChild(el('div', { className: 'section-title' },
+    `Rules (${rules.length}${rejectedCount ? `; ${rejectedCount} rejected` : ''})`,
+  ));
 
   const toolbar = el('div', { className: 'section-toolbar' });
   const filterWrap = el('div', { className: 'section-filter' });
@@ -31,7 +36,7 @@ export function renderRules(blocks: PbcBlock[]): HTMLElement | null {
   const filter = el('input', {
     className: 'section-filter-input',
     type: 'search',
-    placeholder: 'Filter by id, name, rule\u2026',
+    placeholder: 'Filter by id, name, rule, trust or reason\u2026',
     'aria-label': 'Filter rules',
   }) as HTMLInputElement;
   filterLabel.appendChild(filter);
@@ -60,15 +65,19 @@ export function renderRules(blocks: PbcBlock[]): HTMLElement | null {
   const tbody = el('tbody');
   const rows: Array<{ node: HTMLElement; search: string }> = [];
   for (const rule of rules) {
-    const row = el('tr', null,
+    const row = el('tr', { className: rule.trust === 'rejected' ? 'rule-rejected' : '' },
       el('td', { className: 'rules-cell-id' }, el('code', null, rule.id)),
       el('td', { className: 'rules-cell-name', style: 'font-weight:500', title: rule.name }, rule.name),
-      el('td', { className: 'rules-cell-rule' }, rule.rule),
+      el('td', { className: 'rules-cell-rule' },
+        renderTrustBadge(rule.trust),
+        el('div', null, rule.rule),
+        renderRejection(rule),
+      ),
     ) as HTMLElement;
     tbody.appendChild(row);
     rows.push({
       node: row,
-      search: `${rule.id} ${rule.name} ${rule.rule}`.toLowerCase(),
+      search: `${rule.id} ${rule.name} ${rule.rule} ${rule.trust} ${rule.trust === 'rejected' ? `${rule.rejectedReason} ${rule.rejectedRef}` : ''}`.toLowerCase(),
     });
   }
   table.appendChild(tbody);

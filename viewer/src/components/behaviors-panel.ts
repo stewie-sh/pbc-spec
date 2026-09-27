@@ -1,7 +1,8 @@
 import { el, highlight } from '../dom.js';
 import type { PbcBlock } from '../parser.js';
+import { readTrust, renderTrustBadge, renderRejection, type TrustDetails } from './trust-details.js';
 
-interface BehaviorGroup {
+interface BehaviorGroup extends TrustDetails {
   id: string;
   name: string;
   actor: string;
@@ -32,6 +33,7 @@ export function renderBehaviors(blocks: PbcBlock[]): HTMLElement | null {
           name: String(obj.name || ''),
           actor: String(obj.actor || ''),
           description: String(obj.description || ''),
+          ...readTrust(obj),
           preconditions: [],
           trigger: '',
           outcomes: [],
@@ -81,7 +83,10 @@ export function renderBehaviors(blocks: PbcBlock[]): HTMLElement | null {
   if (groups.length === 0) return null;
 
   const section = el('div', { className: 'section' });
-  section.appendChild(el('div', { className: 'section-title' }, `Behaviors (${groups.length})`));
+  const rejectedCount = groups.filter(behavior => behavior.trust === 'rejected').length;
+  section.appendChild(el('div', { className: 'section-title' },
+    `Behaviors (${groups.length}${rejectedCount ? `; ${rejectedCount} rejected` : ''})`,
+  ));
 
   const cards: HTMLElement[] = [];
   const toolbar = el('div', { className: 'section-toolbar' });
@@ -117,13 +122,15 @@ export function renderBehaviors(blocks: PbcBlock[]): HTMLElement | null {
   section.appendChild(empty);
 
   for (const bhv of groups) {
-    const card = el('div', { className: 'behavior-card' });
+    const card = el('div', { className: `behavior-card${bhv.trust === 'rejected' ? ' behavior-rejected' : ''}` });
     cards.push(card);
     const searchable = [
       bhv.id,
       bhv.name,
       bhv.actor,
       bhv.description,
+      bhv.trust,
+      ...(bhv.trust === 'rejected' ? [bhv.rejectedReason, bhv.rejectedRef] : []),
       ...bhv.preconditions,
       bhv.trigger,
       ...bhv.outcomes,
@@ -141,6 +148,7 @@ export function renderBehaviors(blocks: PbcBlock[]): HTMLElement | null {
       el('span', { className: 'chevron' }, '\u25b6'),
       el('span', { className: 'bhv-id' }, bhv.id),
       el('span', { className: 'bhv-name' }, bhv.name),
+      renderTrustBadge(bhv.trust),
     );
 
     if (bhv.actor) {
@@ -154,6 +162,8 @@ export function renderBehaviors(blocks: PbcBlock[]): HTMLElement | null {
 
     header.addEventListener('click', () => card.classList.toggle('open'));
     card.appendChild(header);
+    const rejection = renderRejection(bhv);
+    if (rejection) card.appendChild(rejection);
 
     // Body
     const body = el('div', { className: 'behavior-body' });

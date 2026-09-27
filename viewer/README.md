@@ -27,6 +27,11 @@ format. One source of truth, two experiences:
 - **Behaviors** — expandable accordion cards grouping each `pbc:behavior` with
   its preconditions, trigger, outcomes, events, transitions, and exceptions
 - **Rules** — table from `pbc:rules`
+- **Rejected decisions** — rules and behaviors marked `trust: rejected` remain
+  visible with a "Rejected · not active" badge, reason and optional decision
+  reference. Filters include trust and rejection details. Companion transitions
+  of rejected behaviors are omitted from the state diagram, but remain readable
+  inside the rejected behavior's historical details.
 - **Configuration** — collapsible tree from `pbc:config`
 
 Clicking a state or actor highlights related elements across all panels.
